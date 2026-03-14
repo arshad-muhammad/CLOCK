@@ -13,46 +13,7 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-}
-
-.input-container {
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.time-inputs {
-  display: flex;
-  gap: 10px;
-}
-
-.time-inputs input {
-  padding: 10px;
-  font-size: 18px;
-  width: 80px;
-  text-align: center;
-  border: none;
-  border-radius: 6px;
-}
-
-.buttons {
-  margin-top: 10px;
-  display: flex;
-  gap: 20px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 10px;
-  cursor: pointer;
-}
-
-.buttons button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  transition: background-color 0.3s;
+  overflow: hidden;
 }
 
 .clock {
@@ -68,12 +29,26 @@ body {
   font-size: 290px;
 }
 
-#beginBtn {
-  margin-top: 20px;
-  display: none;
-  width: 200px;
-  height: 40px;
-  border-radius: 50px;
-  background-color: white;
-  border: none;
+.waiting-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Darker Grotesque', sans-serif;
+  font-size: 22px;
+  color: #333;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
 }

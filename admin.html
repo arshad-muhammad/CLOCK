@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .admin-container {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 40px;
+      width: 460px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .admin-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .admin-header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .admin-header p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .timer-inputs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 8px;
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .input-group input:focus {
+      border-color: #444;
+    }
+
+    .input-group input::placeholder {
+      color: #333;
+    }
+
+    .input-group span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #444;
+    }
+
+    .color-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .color-picker-wrapper {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #2a2a2a;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .color-picker-wrapper input[type="color"] {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 64px;
+      height: 64px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .color-hex {
+      flex: 1;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-family: monospace;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .color-hex:focus {
+      border-color: #444;
+    }
+
+    .color-presets {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .color-preset {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .color-preset:hover {
+      transform: scale(1.15);
+    }
+
+    .color-preset.active {
+      border-color: #fff;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #e0e0e0;
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: #ff4444;
+      border: 1px solid #331111;
+      margin-top: 10px;
+    }
+
+    .btn-danger:hover {
+      background: #1a0808;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #555;
+      min-height: 20px;
+    }
+
+    .status.success { color: #4CAF50; }
+    .status.error { color: #ff4444; }
+
+    .current-info {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .current-info .label {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .current-info .value {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>Timer Admin</h1>
+      <p>Control the countdown timer remotely</p>
+    </div>
+
+    <div class="current-info" id="currentInfo" style="display:none;">
+      <div>
+        <div class="label">Currently Running</div>
+        <div class="value" id="currentTimer">--:--:--</div>
+      </div>
+      <div>
+        <div class="label">Color</div>
+        <div class="value" id="currentColor" style="font-size:20px;">●</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Set Timer Duration</div>
+      <div class="timer-inputs">
+        <div class="input-group">
+          <input type="number" id="days" placeholder="0" min="0" max="99" />
+          <span>Days</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="hours" placeholder="0" min="0" max="23" />
+          <span>Hours</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="minutes" placeholder="0" min="0" max="59" />
+          <span>Minutes</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="seconds" placeholder="0" min="0" max="59" />
+          <span>Seconds</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Timer Color</div>
+      <div class="color-section">
+        <div class="color-picker-wrapper">
+          <input type="color" id="colorPicker" value="#ff0000" />
+        </div>
+        <input type="text" class="color-hex" id="colorHex" value="#ff0000" placeholder="#ff0000" />
+      </div>
+      <div class="color-presets">
+        <div class="color-preset active" style="background:#ff0000" data-color="#ff0000"></div>
+        <div class="color-preset" style="background:#00ff41" data-color="#00ff41"></div>
+        <div class="color-preset" style="background:#00b4d8" data-color="#00b4d8"></div>
+        <div class="color-preset" style="background:#ffbe0b" data-color="#ffbe0b"></div>
+        <div class="color-preset" style="background:#e040fb" data-color="#e040fb"></div>
+        <div class="color-preset" style="background:#ff6b35" data-color="#ff6b35"></div>
+        <div class="color-preset" style="background:#ffffff" data-color="#ffffff"></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="setTimer()">Start Timer</button>
+    <button class="btn btn-danger" onclick="stopTimer()">Stop Timer</button>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const colorPicker = document.getElementById('colorPicker');
+    const colorHex = document.getElementById('colorHex');
+    const presets = document.querySelectorAll('.color-preset');
+    const statusEl = document.getElementById('status');
+
+    function setColor(hex) {
+      colorPicker.value = hex;
+      colorHex.value = hex;
+      presets.forEach(p => p.classList.toggle('active', p.dataset.color === hex));
+    }
+
+    colorPicker.addEventListener('input', () => setColor(colorPicker.value));
+
+    colorHex.addEventListener('input', () => {
+      const val = colorHex.value;
+      if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+        colorPicker.value = val;
+        presets.forEach(p => p.classList.toggle('active', p.dataset.color === val));
+      }
+    });
+
+    presets.forEach(p => p.addEventListener('click', () => setColor(p.dataset.color)));
+
+    function showStatus(msg, type) {
+      statusEl.textContent = msg;
+      statusEl.className = 'status ' + type;
+      if (type === 'success') setTimeout(() => { statusEl.textContent = ''; }, 3000);
+    }
+
+    function setTimer() {
+      const d = parseInt(document.getElementById('days').value) || 0;
+      const h = parseInt(document.getElementById('hours').value) || 0;
+      const m = parseInt(document.getElementById('minutes').value) || 0;
+      const s = parseInt(document.getElementById('seconds').value) || 0;
+      const totalSeconds = d * 86400 + h * 3600 + m * 60 + s;
+
+      if (totalSeconds <= 0) {
+        showStatus('Enter a valid duration', 'error');
+        return;
+      }
+
+      const endTime = Date.now() + totalSeconds * 1000;
+
+      db.ref('timer').set({
+        endTime: endTime,
+        color: colorHex.value,
+        active: true
+      }).then(() => {
+        showStatus('Timer started', 'success');
+      }).catch(err => {
+        showStatus('Error: ' + err.message, 'error');
+      });
+    }
+
+    function stopTimer() {
+      db.ref('timer').update({ active: false }).then(() => {
+        showStatus('Timer stopped', 'success');
+      }).catch(err => {
+        showStatus('Error: ' + err.message, 'error');
+      });
+    }
+
+    // Live preview of current timer state
+    db.ref('timer').on('value', (snapshot) => {
+      const data = snapshot.val();
+      const infoEl = document.getElementById('currentInfo');
+
+      if (!data || !data.active) {
+        infoEl.style.display = 'none';
+        return;
+      }
+
+      infoEl.style.display = 'flex';
+      document.getElementById('currentColor').style.color = data.color || '#ff0000';
+
+      function tick() {
+        const remaining = Math.max(0, Math.floor((data.endTime - Date.now()) / 1000));
+        const dd = Math.floor(remaining / 86400);
+        const hh = Math.floor((remaining % 86400) / 3600);
+        const mm = Math.floor((remaining % 3600) / 60);
+        const ss = remaining % 60;
+
+        let display = '';
+        if (dd > 0) display += String(dd).padStart(2,'0') + ':';
+        display += String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0') + ':' + String(ss).padStart(2,'0');
+        document.getElementById('currentTimer').textContent = display;
+
+        if (remaining > 0 && data.active) requestAnimationFrame(tick);
+      }
+      tick();
+    });
+  </script>
+</body>
+</html>
