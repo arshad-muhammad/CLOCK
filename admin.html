@@ -18,6 +18,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
 
     .admin-container {
@@ -25,7 +26,8 @@
       border: 1px solid #2a2a2a;
       border-radius: 16px;
       padding: 40px;
-      width: 460px;
+      width: 100%;
+      max-width: 460px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
 
@@ -74,7 +76,7 @@
 
     .input-group input {
       width: 100%;
-      padding: 14px 8px;
+      padding: 14px 4px;
       font-size: 22px;
       font-weight: 600;
       text-align: center;
@@ -85,6 +87,13 @@
       outline: none;
       transition: border-color 0.2s;
       font-family: 'Inter', sans-serif;
+      -moz-appearance: textfield;
+    }
+
+    .input-group input::-webkit-outer-spin-button,
+    .input-group input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .input-group input:focus {
@@ -131,6 +140,7 @@
 
     .color-hex {
       flex: 1;
+      min-width: 0;
       padding: 14px 16px;
       font-size: 15px;
       font-family: monospace;
@@ -150,6 +160,7 @@
       display: flex;
       gap: 8px;
       margin-top: 12px;
+      flex-wrap: wrap;
     }
 
     .color-preset {
@@ -232,6 +243,48 @@
       font-size: 14px;
       font-weight: 600;
       font-family: monospace;
+    }
+
+    @media (max-width: 480px) {
+      .admin-container {
+        padding: 24px 18px;
+        border-radius: 12px;
+      }
+
+      .admin-header { margin-bottom: 24px; }
+      .admin-header h1 { font-size: 19px; }
+
+      .timer-inputs { gap: 8px; }
+
+      .input-group input {
+        padding: 12px 2px;
+        font-size: 18px;
+      }
+
+      .color-section { gap: 10px; }
+
+      .color-picker-wrapper {
+        width: 42px;
+        height: 42px;
+      }
+
+      .color-hex {
+        padding: 12px 12px;
+        font-size: 14px;
+      }
+
+      .btn { padding: 12px; font-size: 14px; }
+
+      .current-info { padding: 12px 14px; }
+      .current-info .value { font-size: 13px; }
+    }
+
+    @media (max-width: 360px) {
+      .admin-container { padding: 20px 14px; }
+
+      .input-group input { font-size: 16px; padding: 10px 2px; }
+
+      .color-preset { width: 24px; height: 24px; }
     }
   </style>
 </head>

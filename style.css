@@ -14,6 +14,7 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
+  padding: 16px;
 }
 
 .clock {
@@ -22,11 +23,13 @@ body {
   display: flex;
   gap: 20px;
   font-size: 200px;
+  align-items: center;
 }
 
 .digit {
   text-align: center;
   font-size: 290px;
+  white-space: nowrap;
 }
 
 .waiting-message {
@@ -51,4 +54,38 @@ body {
 @keyframes pulse {
   0%, 100% { opacity: 0.3; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Tablet landscape */
+@media (max-width: 1200px) {
+  .clock { gap: 14px; }
+  .digit { font-size: 200px; }
+}
+
+/* Tablet portrait */
+@media (max-width: 900px) {
+  .clock { gap: 10px; }
+  .digit { font-size: 140px; }
+}
+
+/* Large phones */
+@media (max-width: 680px) {
+  .clock { gap: 6px; }
+  .digit { font-size: 90px; }
+  .waiting-message { font-size: 16px; }
+}
+
+/* Small phones */
+@media (max-width: 440px) {
+  .clock { gap: 4px; }
+  .digit { font-size: 60px; }
+  .waiting-message {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 340px) {
+  .clock { gap: 2px; }
+  .digit { font-size: 44px; }
 }
